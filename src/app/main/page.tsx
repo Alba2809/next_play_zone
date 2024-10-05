@@ -21,7 +21,7 @@ export default function Main() {
         </p>
         <div className="flex gap-10 items-center">
           <button className="relative font-medium text-xl px-6 py-4 bg-transparent rounded-md border border-[#FC4754] after:absolute after:left-0 after:top-0 after:bottom-0 after:bg-[#FC4754] after:opacity-61 after:w-0 after:h-full after:hover:w-full after:transition-all after:duration-500 after:-z-10 after:rounded-sm duration-300">Como jugar</button>
-          <a href="/dashboard">
+          <a href="https://github.com/Alba2809/next_play_zone" target="_blank" rel="noreferrer">
             <Github className="size-10" />
           </a>
         </div>

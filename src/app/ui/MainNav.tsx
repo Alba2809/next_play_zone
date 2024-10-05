@@ -1,10 +1,9 @@
 import Link from "next/link";
-import { roboto } from "../lib/fonts";
 
 export default function MainNav() {
   return (
     <header className="flex flex-wrap justify-between">
-      <h1 className={`${roboto.className} text-3xl font-bold`}>
+      <h1 className={`text-3xl font-bold`}>
         <span className="text-[#C084FC]">Next</span>
         <span className="text-[#FC4754] opacity-91">
           Play
@@ -14,7 +13,7 @@ export default function MainNav() {
         </span>
       </h1>
       <nav
-        className={`flex items-center justify-around gap-10 ${roboto.className} font-medium text-white text-xl`}
+        className={`flex items-center justify-around gap-10 font-medium text-white text-xl`}
       >
         <Link
           href="/main/games"

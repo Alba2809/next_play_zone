@@ -1,4 +1,4 @@
-import { roboto } from "../lib/fonts";
+import { roboto } from "../../lib/fonts";
 import MainNav from "../ui/MainNav";
 
 export default function MainLayout({

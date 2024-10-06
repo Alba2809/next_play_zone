@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -40,6 +41,7 @@ export default function RootLayout({
           <div className="absolute bottom-1/2 left-1/2 size-[8px] bg-[#FF828B] opacity-[62%] rounded-full animate-pulse"></div>
           <div className="absolute top-1/4 left-1/3 size-[14px] bg-[#FF828B] opacity-[62%] rounded-full filter blur-sm animate-pulse"></div>
         </div>
+        <Toaster position="top-right" />
         {children}
       </body>
     </html>

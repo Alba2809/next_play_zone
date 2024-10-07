@@ -1,6 +1,6 @@
 "use client";
 
-import { FieldError, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { inter } from "../../../lib/fonts";
 import { LoginSchema } from "../../../lib/zod";
 import { zodResolver } from "@hookform/resolvers/zod";

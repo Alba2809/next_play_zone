@@ -26,9 +26,9 @@ export default function Main() {
           </a>
         </div>
       </div>
-      <div className="size-full relative">
+      <div className="size-full relative hidden lg:block">
         <div className="absolute top-[15%] left-[20%] -rotate-12 animate-bounce-slow">
-          <Image src={Sword} alt="Sword" className="size-44"  />
+          <Image src={Sword} alt="Sword" className="size-44"  /> 
           <Image
             src={Sword}
             alt="Sword"

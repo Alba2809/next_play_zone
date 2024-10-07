@@ -7,8 +7,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useLayoutEffect } from "react";
 import toast from "react-hot-toast";
+import { loginAction } from "../../api/auth/auth.actions";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
+  const router = useRouter();
   const {
     handleSubmit,
     register,
@@ -21,13 +24,18 @@ export default function Login() {
     },
   });
 
-  const onSubmit = (data: z.infer<typeof LoginSchema>) => {
-    console.log(data);
-  };
+  const onSubmit = handleSubmit(async (data: z.infer<typeof LoginSchema>) => {
+    const res = await loginAction(data);
+    if (res.error) {
+      toast.error(res.error);
+    } else {
+      router.push("/main");
+    }
+  });
 
   useLayoutEffect(() => {
     if (errors) {
-      Object.values(errors).map((error: any) => toast.error(error?.message, { style: { background: "#000000", color: "#F3E8FF" } }));
+      Object.values(errors).map((error: any) => toast.error(error?.message));
     }
   }, [errors]);
 
@@ -35,11 +43,14 @@ export default function Login() {
     <div className="w-full h-screen flex items-center justify-center">
       <section className="">
         <div className="flex flex-col items-center justify-center gap-2">
-          <h1 className={`text-5xl font-bold`}>
+          <button
+            className={`text-5xl font-bold`}
+            onClick={() => router.push("/main")}
+          >
             <span className="text-[#C084FC]">Next</span>
             <span className="text-[#FC4754] opacity-91">Play</span>
             <span className="text-[#C084FC]">Zone</span>
-          </h1>
+          </button>
           <p
             className={`text-base text-[#E9D5FF] font-medium ${inter.className}`}
           >
@@ -47,7 +58,7 @@ export default function Login() {
           </p>
         </div>
         <div
-          className={`flex flex-col bg-black border border-[#A855F7] border-opacity-30 rounded-md px-7 py-9 max-w-[500px] mt-8 ${inter.className}`}
+          className={`flex flex-col bg-black border border-[#A855F7] border-opacity-30 rounded-md px-7 py-9 max-w-[500px] mt-8 ${inter.className} shadow-[5px_2px_10px_rgba(0,0,0,0.25)]`}
         >
           <h1 className="font-bold text-2xl text-[#F8ECEC]">Iniciar sesión</h1>
           <p className="text-[#E9D5FF] font-medium text-lg mt-3 mb-10">
@@ -55,7 +66,7 @@ export default function Login() {
           </p>
           <form
             className={`w-full flex flex-col text-lg font-medium`}
-            onSubmit={handleSubmit(onSubmit)}
+            onSubmit={onSubmit}
           >
             <label htmlFor="email" className="text-[#F3E8FF]">
               Correo de usuario
@@ -63,7 +74,9 @@ export default function Login() {
             <input
               type="email"
               id="email"
-              className="w-full rounded-md bg-[#582C87] bg-opacity-50 border border-[#A855F7] border-opacity-30 py-2 px-4 text-[#D6BCFA] text-opacity-100 placeholder-[#D6BCFA] focus:outline-none focus:border-opacity-100"
+              className={`w-full rounded-md bg-[#582C87] bg-opacity-50 border border-[#A855F7] border-opacity-30 py-2 px-4 text-[#D6BCFA] text-opacity-100 placeholder-[#D6BCFA] focus:outline-none focus:border-opacity-100 ${
+                errors.email && "border-red-500"
+              }`}
               placeholder="User123"
               {...register("email")}
             />
@@ -73,7 +86,9 @@ export default function Login() {
             <input
               type="password"
               id="password"
-              className="w-full rounded-md bg-[#582C87] bg-opacity-50 border border-[#A855F7] border-opacity-30 py-2 px-4 text-[#D6BCFA] text-opacity-100 placeholder-[#D6BCFA] focus:outline-none focus:border-opacity-100"
+              className={`w-full rounded-md bg-[#582C87] bg-opacity-50 border border-[#A855F7] border-opacity-30 py-2 px-4 text-[#D6BCFA] text-opacity-100 placeholder-[#D6BCFA] focus:outline-none focus:border-opacity-100 ${
+                errors.password && "border-red-500"
+              }`}
               placeholder="******"
               {...register("password")}
             />

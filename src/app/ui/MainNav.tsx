@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function MainNav() {
   return (
-    <header className="flex flex-wrap justify-between">
+    <header className="flex flex-wrap justify-between items-center">
       <h1 className={`text-3xl font-bold`}>
         <span className="text-[#C084FC]">Next</span>
         <span className="text-[#FC4754] opacity-91">

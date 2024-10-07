@@ -16,12 +16,18 @@ const config: Config = {
         'bounce-slow': 'bounce 2s infinite',
         'bounce-medium': 'bounce 1.5s infinite',
         'bounce-fast': 'bounce 1s infinite',
+        'alert': 'alert 1s',
       },
       keyframes: {
         bounce: {
           '0%, 100%': { transform: 'translateY(-10%)' },
           '50%': { transform: 'translateY(0)' },
         },
+        alert: {
+          '0%': { transform: 'translateX(5%)' },
+          '50%': { transform: 'translateX(-5%)' },
+          '100%': { transform: 'translateX(0)' },
+        }
       },
     },
   },

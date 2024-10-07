@@ -1,6 +1,6 @@
 "use client";
 
-import { useForm } from "react-hook-form";
+import { FieldError, useForm } from "react-hook-form";
 import { inter } from "../../../lib/fonts";
 import { LoginSchema } from "../../../lib/zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -35,7 +35,11 @@ export default function Login() {
 
   useLayoutEffect(() => {
     if (errors) {
-      Object.values(errors).map((error: any) => toast.error(error?.message));
+      Object.values(errors).map((error) => {
+        if ("message" in error && error.message) {
+          toast.error(error?.message); // error es de tipo FieldError
+        }
+      });
     }
   }, [errors]);
 

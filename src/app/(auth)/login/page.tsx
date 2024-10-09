@@ -9,6 +9,9 @@ import { useLayoutEffect } from "react";
 import toast from "react-hot-toast";
 import { loginAction } from "../../api/auth/auth.actions";
 import { useRouter } from "next/navigation";
+import Github from "../../images/icons/Github";
+import Google from "../../images/icons/Google";
+import Link from "next/link";
 
 export default function Login() {
   const router = useRouter();
@@ -47,14 +50,14 @@ export default function Login() {
     <div className="w-full h-screen flex items-center justify-center">
       <section className="">
         <div className="flex flex-col items-center justify-center gap-2">
-          <button
+          <Link
             className={`text-5xl font-bold`}
-            onClick={() => router.push("/main")}
+            href={"/"}
           >
             <span className="text-[#C084FC]">Next</span>
             <span className="text-[#FC4754] opacity-91">Play</span>
             <span className="text-[#C084FC]">Zone</span>
-          </button>
+          </Link>
           <p
             className={`text-base text-[#E9D5FF] font-medium ${inter.className}`}
           >
@@ -104,7 +107,21 @@ export default function Login() {
               Acceder
             </button>
           </form>
-          <p className="text-center text-[#E9D5FF] font-medium mt-5 text-lg">
+          <section className="flex flex-wrap gap-3 items-center justify-center w-full my-5 text-[#E9D5FF]">
+            <button
+              className="px-4 py-2 bg-transparent rounded-md flex items-center justify-center gap-2 border border-[#A855F7] hover:text-white transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:shadow-[4px_4px_0px_#9042da] hover:rounded-sm active:translate-x-[0px] active:translate-y-[0px] active:rounded-md active:shadow-none"
+            >
+              <Github className="size-6" />
+              GitHub
+            </button>
+            <button
+              className="px-4 py-2 bg-transparent rounded-md flex items-center justify-center gap-2 border border-[#A855F7] hover:text-white transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:shadow-[4px_4px_0px_#9042da] hover:rounded-sm active:translate-x-[0px] active:translate-y-[0px] active:rounded-md active:shadow-none"
+            >
+              <Google className="size-6" />
+              Google
+            </button>
+          </section>
+          <p className="text-center text-[#E9D5FF] font-medium text-lg">
             ¿No tienes una cuenta?
             <a href="/register" className="text-[#C084FC] underline ml-3">
               Registrate aquí

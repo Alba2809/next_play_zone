@@ -7,13 +7,14 @@ import Warrior from "./images/warrior.webp";
 import Image from "next/image";
 import { roboto } from "../lib/fonts";
 import MainNav from "./ui/MainNav";
+import Link from "next/link";
 
 export default function Home() {
 
   return (
-    <div className={`flex flex-col h-screen py-12 px-16 ${roboto.className}`}>
+    <div className={`h-screen py-12 px-16 ${roboto.className}`}>
       <MainNav />
-      <section className="size-full mt-5 flex gap-10 items-center justify-center text-white">
+      <section id="main" className="size-full mt-5 flex gap-10 items-center justify-center text-white">
         <div className="w-full flex flex-col gap-5 tracking-wide">
           <h1 className="text-6xl font-bold">
             NextPlayZone <br />
@@ -25,9 +26,9 @@ export default function Home() {
             a prueba tu mente. ¡Juega y disfruta!
           </p>
           <div className="flex gap-10 items-center">
-            <button className="relative font-medium text-xl px-6 py-4 bg-transparent rounded-md border border-[#FC4754] after:absolute after:left-0 after:top-0 after:bottom-0 after:bg-[#FC4754] after:opacity-61 after:w-0 after:h-full after:hover:w-full after:transition-all after:duration-500 after:-z-10 after:rounded-sm duration-300">
+            <Link href={"#how-to-play"} className="relative font-medium text-xl px-6 py-4 bg-transparent rounded-md border border-[#FC4754] after:absolute after:left-0 after:top-0 after:bottom-0 after:bg-[#FC4754] after:opacity-61 after:w-0 after:h-full after:hover:w-full after:transition-all after:duration-500 after:-z-10 after:rounded-sm duration-300">
               Como jugar
-            </button>
+            </Link>
             <a
               href="https://github.com/Alba2809/next_play_zone"
               target="_blank"
@@ -67,6 +68,14 @@ export default function Home() {
             className="size-48 absolute top-10 right-[15%] animate-bounce"
           />
         </div>
+      </section>
+      <section id="games">
+      </section>
+      <section id="ranking">
+      </section>
+      <section id="how-to-play">
+      </section>
+      <section id="about">
       </section>
     </div>
   );

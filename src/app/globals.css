@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+#header-nav {
+  animation: blur linear both 0.5s;
+  animation-timeline: scroll();
+  animation-range: 0 500px;
+}
+
+@keyframes blur {
+  to {
+    backdrop-filter: blur(20px);
+    border-width: 1px;
+    border-color: rgb(0, 0, 0);
+    padding: 1rem 1rem;
+    background-color: rgb(0, 0, 0);
+    border-radius: 10px;
+  }
+}

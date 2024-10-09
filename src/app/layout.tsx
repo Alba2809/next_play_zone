@@ -28,9 +28,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#10061E]`}
       >
-        <div className="absolute w-full h-screen overflow-hidden bg-[#10061E] -z-10">
+        <div className="absolute w-full h-screen bg-[#10061E] -z-10">
           {/* Red glowing areas */}
           <div className="absolute top-24 -left-52 size-[262px] bg-[#FC4754] rounded-full filter blur-[80px]"></div>
           <div className="absolute bottom-60 right-60 size-[280px] bg-[#FC4754] rounded-full filter blur-[80px]"></div> 

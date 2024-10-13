@@ -8,7 +8,7 @@ generator client {
 }
 
 enum UserRole {
-  USER
+  GAMER
   ADMIN
 }
 
@@ -20,7 +20,7 @@ model User {
   password      String?
   image         String?
   accounts      Account[]
-  role          UserRole  @default(USER)
+  role          UserRole  @default(GAMER)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -48,9 +48,9 @@ model Account {
 }
 
 model VerificationToken {
-  identifier String
+  identifier String   @unique
   token      String
   expires    DateTime
 
-  @@id([identifier, token])
+  @@id([identifier])
 }

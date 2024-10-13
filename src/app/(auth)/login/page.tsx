@@ -1,3 +1,15 @@
+// "use server";
+// export default async function Login() {
+//   const session = await auth();
+
+//   if (session) {
+    
+//   }
+
+//   return <div>Dashboard</div>;
+// }
+
+
 "use client";
 
 import { useForm } from "react-hook-form";
@@ -5,7 +17,7 @@ import { inter } from "../../../lib/fonts";
 import { LoginSchema } from "../../../lib/zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { loginAction } from "../../api/auth/auth.actions";
 import { useRouter } from "next/navigation";
@@ -13,7 +25,15 @@ import Github from "../../images/icons/Github";
 import Google from "../../images/icons/Google";
 import Link from "next/link";
 
-export default function Login() {
+export default function Component({
+  searchParams,
+}: {
+  searchParams: { verified: string };
+} ) {
+  if(searchParams.verified === "true") {
+    toast.success("Correo verificado");
+  }
+
   const router = useRouter();
   const {
     handleSubmit,
@@ -26,13 +46,18 @@ export default function Login() {
       password: "",
     },
   });
+  const [isPending, setIsPending] = useState(false);
 
   const onSubmit = handleSubmit(async (data: z.infer<typeof LoginSchema>) => {
+    if(isPending) return;
+    setIsPending(true);
     const res = await loginAction(data);
+    setIsPending(false);
     if (res.error) {
+      console.log(res.error)
       toast.error(res.error);
     } else {
-      router.push("/main");
+      router.push("/");
     }
   });
 
@@ -102,20 +127,20 @@ export default function Login() {
 
             <button
               type="submit"
-              className="w-full mt-10 px-4 py-2 bg-[#9333EA] text-white border border-[#A855F7] border-opacity-30"
+              className={`w-full mt-10 px-4 py-2 bg-[#9333EA] text-white border border-[#A855F7] border-opacity-30 ${isPending && "cursor-not-allowed opacity-50"}`}
             >
               Acceder
             </button>
           </form>
           <section className="flex flex-wrap gap-3 items-center justify-center w-full my-5 text-[#E9D5FF]">
             <button
-              className="px-4 py-2 bg-transparent rounded-md flex items-center justify-center gap-2 border border-[#A855F7] hover:text-white transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:shadow-[4px_4px_0px_#9042da] hover:rounded-sm active:translate-x-[0px] active:translate-y-[0px] active:rounded-md active:shadow-none"
+              className={`px-4 py-2 bg-transparent rounded-md flex items-center justify-center gap-2 border border-[#A855F7] hover:text-white transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:shadow-[4px_4px_0px_#9042da] hover:rounded-sm active:translate-x-[0px] active:translate-y-[0px] active:rounded-md active:shadow-none ${isPending && "cursor-not-allowed opacity-50"}`}
             >
               <Github className="size-6" />
               GitHub
             </button>
             <button
-              className="px-4 py-2 bg-transparent rounded-md flex items-center justify-center gap-2 border border-[#A855F7] hover:text-white transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:shadow-[4px_4px_0px_#9042da] hover:rounded-sm active:translate-x-[0px] active:translate-y-[0px] active:rounded-md active:shadow-none"
+              className={`px-4 py-2 bg-transparent rounded-md flex items-center justify-center gap-2 border border-[#A855F7] hover:text-white transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:shadow-[4px_4px_0px_#9042da] hover:rounded-sm active:translate-x-[0px] active:translate-y-[0px] active:rounded-md active:shadow-none ${isPending && "cursor-not-allowed opacity-50"}`}
             >
               <Google className="size-6" />
               Google
@@ -123,9 +148,9 @@ export default function Login() {
           </section>
           <p className="text-center text-[#E9D5FF] font-medium text-lg">
             ¿No tienes una cuenta?
-            <a href="/register" className="text-[#C084FC] underline ml-3">
+            <Link href="/register" className="text-[#C084FC] underline ml-3">
               Registrate aquí
-            </a>
+            </Link>
           </p>
         </div>
       </section>

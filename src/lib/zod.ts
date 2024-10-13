@@ -11,9 +11,9 @@ export const LoginSchema = object({
 });
 
 export const RegisterSchema = object({
-  name: string({ required_error: "Se requiere un nombre." })
-    .min(1, "Se requiere un nombre")
-    .max(32, "El nombre debe tener menos de 32 caracteres."),
+  name: string({ required_error: "Se requiere un nombre de usuario." })
+    .min(1, "Se requiere un nombre de usuario")
+    .max(32, "El nombre de usuario debe tener menos de 32 caracteres."),
   email: string({ required_error: "Se requiere un correo." })
     .min(1, "Se requiere un correo")
     .email("Correo no válido."),

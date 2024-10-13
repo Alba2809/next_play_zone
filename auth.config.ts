@@ -1,8 +1,10 @@
 import type { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { LoginSchema } from "./src/lib/zod";
-import { findUserByEmail } from "./src/lib/data";
+import { createVerificationToken, deleteVerificationToken, findUserByEmail, findVerificationTokenByEmail } from "./src/lib/data.user";
 import bcrypt from "bcryptjs";
+import { nanoid } from "nanoid";
+import { sendEmailVerification } from "./src/lib/email";
 
 // Notice this is only an object, not a full Auth.js instance
 export default {
@@ -33,6 +35,25 @@ export default {
 
         if (!passwordMatch) {
           throw new Error("Correo o contraseña inválidos.");
+        }
+
+        // verification of email
+        if(!user.emailVerified) {
+          const verificationToken = await findVerificationTokenByEmail(user.email);
+
+          // delete token if exist
+          if(verificationToken?.identifier) {
+            await deleteVerificationToken(user.email)
+          }
+
+          const token = nanoid();
+
+          await createVerificationToken(user.email, token, new Date(Date.now() + 1000 * 60 * 60 * 24 * 7));
+
+          // send email verification
+          await sendEmailVerification(user.email, token);
+
+          throw new Error("Verifica tu correo para continuar");
         }
 
         // return user object with their profile data

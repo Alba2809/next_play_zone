@@ -8,8 +8,12 @@ import Image from "next/image";
 import { roboto } from "../lib/fonts";
 import MainNav from "./ui/MainNav";
 import Link from "next/link";
+import { auth } from "@/auth";
 
-export default function Home() {
+export default async function Home() {
+  const session = await auth();
+
+  console.log(session)
 
   return (
     <div className={`h-screen py-12 px-16 ${roboto.className}`}>

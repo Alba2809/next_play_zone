@@ -24,6 +24,20 @@ export const loginAction = async (data: z.infer<typeof LoginSchema>) => {
   }
 };
 
+// export const signInProviderAction = async (provider: string) => {
+//   try {
+//     const res = await signIn(provider, { redirectTo: "/dashboard" , redirect: false });
+//     console.log(res);
+//     return { success: true, url: res };
+//   } catch (error) {
+//     console.log(error);
+//     if (error instanceof AuthError) {
+//       return { error: error.cause?.err?.message };
+//     }
+//     return { error: "Error al iniciar sesión" };
+//   }
+// };
+
 export const registerAction = async (values: z.infer<typeof RegisterSchema>) => {
   try {
     const { data, success } = RegisterSchema.safeParse(values);

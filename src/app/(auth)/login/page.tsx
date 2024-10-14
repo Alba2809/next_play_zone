@@ -1,15 +1,3 @@
-// "use server";
-// export default async function Login() {
-//   const session = await auth();
-
-//   if (session) {
-    
-//   }
-
-//   return <div>Dashboard</div>;
-// }
-
-
 "use client";
 
 import { useForm } from "react-hook-form";
@@ -17,7 +5,7 @@ import { inter } from "../../../lib/fonts";
 import { LoginSchema } from "../../../lib/zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { loginAction } from "../../api/auth/auth.actions";
 import { useRouter } from "next/navigation";
@@ -29,8 +17,8 @@ export default function Component({
   searchParams,
 }: {
   searchParams: { verified: string };
-} ) {
-  if(searchParams.verified === "true") {
+}) {
+  if (searchParams.verified === "true") {
     toast.success("Correo verificado");
   }
 
@@ -49,17 +37,30 @@ export default function Component({
   const [isPending, setIsPending] = useState(false);
 
   const onSubmit = handleSubmit(async (data: z.infer<typeof LoginSchema>) => {
-    if(isPending) return;
+    if (isPending) return;
     setIsPending(true);
     const res = await loginAction(data);
     setIsPending(false);
     if (res.error) {
-      console.log(res.error)
+      console.log(res.error);
       toast.error(res.error);
     } else {
       router.push("/");
     }
   });
+
+  // const signInProvider = async (provider: string) => {
+  //   if (isPending) return;
+  //   setIsPending(true);
+  //   const res = await signInProviderAction(provider);
+  //   setIsPending(false);
+  //   if (res.error) {
+  //     console.log(res.error);
+  //     toast.error(res.error);
+  //   } else {
+        
+  //   }
+  // };
 
   useLayoutEffect(() => {
     if (errors) {
@@ -75,10 +76,7 @@ export default function Component({
     <div className="w-full h-screen flex items-center justify-center">
       <section className="">
         <div className="flex flex-col items-center justify-center gap-2">
-          <Link
-            className={`text-5xl font-bold`}
-            href={"/"}
-          >
+          <Link className={`text-5xl font-bold`} href={"/"}>
             <span className="text-[#C084FC]">Next</span>
             <span className="text-[#FC4754] opacity-91">Play</span>
             <span className="text-[#C084FC]">Zone</span>
@@ -127,26 +125,34 @@ export default function Component({
 
             <button
               type="submit"
-              className={`w-full mt-10 px-4 py-2 bg-[#9333EA] text-white border border-[#A855F7] border-opacity-30 ${isPending && "cursor-not-allowed opacity-50"}`}
+              className={`w-full mt-10 px-4 py-2 bg-[#9333EA] text-white border border-[#A855F7] border-opacity-30 ${
+                isPending && "cursor-not-allowed opacity-50"
+              }`}
             >
               Acceder
             </button>
           </form>
-          <section className="flex flex-wrap gap-3 items-center justify-center w-full my-5 text-[#E9D5FF]">
+          {/* <section className="flex flex-wrap gap-3 items-center justify-center w-full my-5 text-[#E9D5FF]">
             <button
-              className={`px-4 py-2 bg-transparent rounded-md flex items-center justify-center gap-2 border border-[#A855F7] hover:text-white transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:shadow-[4px_4px_0px_#9042da] hover:rounded-sm active:translate-x-[0px] active:translate-y-[0px] active:rounded-md active:shadow-none ${isPending && "cursor-not-allowed opacity-50"}`}
+              className={`px-4 py-2 bg-transparent rounded-md flex items-center justify-center gap-2 border border-[#A855F7] hover:text-white transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:shadow-[4px_4px_0px_#9042da] hover:rounded-sm active:translate-x-[0px] active:translate-y-[0px] active:rounded-md active:shadow-none ${
+                isPending && "cursor-not-allowed opacity-50"
+              }`}
+              onClick={() => signInProvider("github")}
             >
               <Github className="size-6" />
               GitHub
             </button>
             <button
-              className={`px-4 py-2 bg-transparent rounded-md flex items-center justify-center gap-2 border border-[#A855F7] hover:text-white transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:shadow-[4px_4px_0px_#9042da] hover:rounded-sm active:translate-x-[0px] active:translate-y-[0px] active:rounded-md active:shadow-none ${isPending && "cursor-not-allowed opacity-50"}`}
+              className={`px-4 py-2 bg-transparent rounded-md flex items-center justify-center gap-2 border border-[#A855F7] hover:text-white transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:shadow-[4px_4px_0px_#9042da] hover:rounded-sm active:translate-x-[0px] active:translate-y-[0px] active:rounded-md active:shadow-none ${
+                isPending && "cursor-not-allowed opacity-50"
+              }`}
+              onClick={() => signInProvider("google")}
             >
               <Google className="size-6" />
               Google
             </button>
-          </section>
-          <p className="text-center text-[#E9D5FF] font-medium text-lg">
+          </section> */}
+          <p className="text-center text-[#E9D5FF] font-medium text-lg mt-2">
             ¿No tienes una cuenta?
             <Link href="/register" className="text-[#C084FC] underline ml-3">
               Registrate aquí

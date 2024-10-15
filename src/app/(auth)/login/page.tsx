@@ -5,7 +5,7 @@ import { inter } from "../../../lib/fonts";
 import { LoginSchema } from "../../../lib/zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { loginAction } from "../../api/auth/auth.actions";
 import { useRouter } from "next/navigation";
@@ -18,10 +18,6 @@ export default function Component({
 }: {
   searchParams: { verified: string };
 }) {
-  if (searchParams.verified === "true") {
-    toast.success("Correo verificado");
-  }
-
   const router = useRouter();
   const {
     handleSubmit,
@@ -71,6 +67,12 @@ export default function Component({
       });
     }
   }, [errors]);
+
+  useEffect(() => {
+    if (searchParams.verified === "true") {
+      toast.success("Correo verificado");
+    }
+  }, [searchParams.verified]);
 
   return (
     <div className="w-full h-screen flex items-center justify-center">

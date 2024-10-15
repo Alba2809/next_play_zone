@@ -9,8 +9,6 @@ import { useEffect, useLayoutEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { loginAction } from "../../api/auth/auth.actions";
 import { useRouter } from "next/navigation";
-import Github from "../../images/icons/Github";
-import Google from "../../images/icons/Google";
 import Link from "next/link";
 
 export default function Component({

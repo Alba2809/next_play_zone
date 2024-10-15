@@ -1,23 +1,23 @@
-import { Resend } from "resend";
-
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export const sendEmailVerification = async (email: string, token: string) => {
   try {
-    await resend.emails.send({
-      from: "NextPlayZone <next.play.zone.oficial@gmail.com>",
-      to: email,
-      subject: "Verify your email",
-      html: `
-          <h1>Verify your email</h1>
-          <p>Click the button to verify your email.</p>
-          <p><a href="${process.env.NEXTAUTH_URL}/api/auth/verify-email?token=${token}">Verify Email</a></p>
-        `,
-    });
+    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/send`, {
+      method: "POST",
+      body: JSON.stringify({ email, token }),
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    })
+
+    const data = await res.json();
+
+    if (data.error) {
+      return { error: data.error };
+    }
 
     return { success: true };
   } catch (error) {
-    console.log(error);
-    return { error: "Error al enviar correo de verificación" };
+    console.error("Error asd asdasdas:", error);
+    return { error: "Error al enviar el correo de verificación" };
   }
 };

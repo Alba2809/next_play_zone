@@ -53,7 +53,11 @@ export default {
           await createVerificationToken(user.email, token, new Date(Date.now() + 1000 * 60 * 60 * 24 * 7));
 
           // send email verification
-          await sendEmailVerification(user.email, token);
+          const res = await sendEmailVerification(user.email, token);
+
+          if(res.error) {
+            throw new Error(res.error);
+          }
 
           throw new Error("Verifica tu correo para continuar");
         }
